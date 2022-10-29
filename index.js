@@ -15,7 +15,7 @@ const docPerimetroLabel = document.querySelector( '#perimetroLabel' );
 const docResultadoLabel = document.querySelector( '#resultadoLabel' );
 
 let altura=100
-let alturaMin=50
+let alturaMin=30
 let alturaMax=300
 
 let perimetro=100
