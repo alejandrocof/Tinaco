@@ -13,6 +13,8 @@ const docPerimetroInput = document.querySelector( '#perimetroInput' );
 const docPerimetroLabel = document.querySelector( '#perimetroLabel' );
 
 const docResultadoLabel = document.querySelector( '#resultadoLabel' );
+const docAlturaVolumenTable = document.querySelector( '#alturaVolumenTable' );
+
 
 let altura=100
 let alturaMin=30
@@ -29,6 +31,7 @@ docAlturaInput.setAttribute('max', alturaMax );
 docPerimetroInput.setAttribute('value', perimetro );
 docPerimetroInput.setAttribute('min', perimetroMin );
 docPerimetroInput.setAttribute('max', perimetroMax );
+
 
 docAlturaInput.oninput = (slider) => {
     altura=slider.target.value
@@ -47,19 +50,50 @@ const calcular = () => {
     let P=250
     let h=200
     let Vmax=perimetro*perimetro*altura/(4000*Math.PI)
-    // console.log(Vmax)
     let vol=niceScale( 0, Vmax)
     // console.log(vol.tickSpacing," ",vol.niceMaximum)
     let Nticks=vol.niceMaximum/vol.tickSpacing
     let hticks=vol.tickSpacing*4000*Math.PI/(perimetro*perimetro)
     // console.log(Nticks, hticks,"cm")
 
+    /*
     docResultadoLabel.textContent=""
     docResultadoLabel.setAttribute('style', 'white-space: pre;');
+    */
 
-    for(let i=Nticks;i>=0;i--){
+    /*for(let i=Nticks;i>=0;i--){
         docResultadoLabel.textContent+=Number(i*hticks).toFixed(1)+" cm → "+Number(i*vol.tickSpacing).toFixed(0)+" litros\n"
+    }*/
+
+    docAlturaVolumenTable.innerHTML=""
+    const alturaTH = document.createElement('th');
+    const volumenTH = document.createElement('th');
+    //nombre.setAttribute('style','width:40%');
+    alturaTH.setAttribute('style', `text-align: center; background-color:#717fff` );
+    volumenTH.setAttribute('style', `text-align: center; background-color:#717fff` );
+    alturaTH.innerText="Altura (cm)";
+    volumenTH.innerText="Volumen (litros)";
+    docAlturaVolumenTable.appendChild(alturaTH);
+    docAlturaVolumenTable.appendChild(volumenTH);
+
+    
+    
+    for(let i=Nticks;i>=0;i--){
+        if( i*hticks <= altura){
+            const tr = document.createElement('tr');
+            const alturaTD = document.createElement('td');
+            const volumenTD = document.createElement('td');
+            alturaTD.setAttribute('style', `text-align: center; background-color:#818eff` );
+            volumenTD.setAttribute('style', `text-align: center; background-color:#818eff` );
+            alturaTD.innerText=Number(i*hticks).toFixed(1);
+            volumenTD.innerText=Number(i*vol.tickSpacing).toFixed(0);
+            tr.appendChild(alturaTD);
+            tr.appendChild(volumenTD);
+            docAlturaVolumenTable.appendChild(tr);
+        }
     }
+    
+    
         
 }
 
