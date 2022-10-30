@@ -85,10 +85,10 @@ const calcular = () => {
     const alturaTH = document.createElement('th');
     const volumenTH = document.createElement('th');
     //nombre.setAttribute('style','width:40%');
-    alturaTH.setAttribute('style', `text-align: center; background-color:#717fff` );
-    volumenTH.setAttribute('style', `text-align: center; background-color:#717fff` );
-    alturaTH.innerText="Altura (cm)";
-    volumenTH.innerText="Volumen (litros)";
+    alturaTH.setAttribute('style', `text-align: center; width:50%; background-color:#717fff` );
+    volumenTH.setAttribute('style', `text-align: center; width:50%; background-color:#717fff` );
+    alturaTH.innerText="Altura\n de la marca\n (cm)";
+    volumenTH.innerText="Volumen\n en la marca\n (litros)";
     docAlturaVolumenTable.appendChild(alturaTH);
     docAlturaVolumenTable.appendChild(volumenTH);
 
