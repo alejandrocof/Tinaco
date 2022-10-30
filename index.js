@@ -43,6 +43,20 @@ docPerimetroInput.oninput = (slider) => {
     calcular();
 };
 
+const deleteTable = ( docTable ) => {
+    var child = docTable.lastElementChild; 
+    while (child) {
+        var subchild = child.lastElementChild; 
+        // console.log("*****",child)
+        while (subchild) {
+            // console.log("**********",subchild)
+            child.removeChild(subchild);
+            subchild = child.lastElementChild;
+        }
+        docTable.removeChild(child);
+        child = docTable.lastElementChild;
+    }
+}
 const calcular = () => {
     docAlturaLabel.textContent=`Altura: ${Number(altura).toFixed(0)} cm`;
     docPerimetroLabel.textContent=`Perímetro: ${Number(perimetro).toFixed(0)} cm`;
@@ -65,7 +79,9 @@ const calcular = () => {
         docResultadoLabel.textContent+=Number(i*hticks).toFixed(1)+" cm → "+Number(i*vol.tickSpacing).toFixed(0)+" litros\n"
     }*/
 
-    docAlturaVolumenTable.innerHTML=""
+    //docAlturaVolumenTable.innerHTML=""
+    
+    deleteTable(docAlturaVolumenTable);
     const alturaTH = document.createElement('th');
     const volumenTH = document.createElement('th');
     //nombre.setAttribute('style','width:40%');
