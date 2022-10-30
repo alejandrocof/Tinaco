@@ -18,11 +18,11 @@ const docAlturaVolumenTable = document.querySelector( '#alturaVolumenTable' );
 
 let altura=100
 let alturaMin=30
-let alturaMax=300
+let alturaMax=400
 
 let perimetro=100
 let perimetroMin=50
-let perimetroMax=800
+let perimetroMax=850
 
 docAlturaInput.setAttribute('value', altura );
 docAlturaInput.setAttribute('min', alturaMin );
