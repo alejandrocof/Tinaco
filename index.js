@@ -16,11 +16,11 @@ const docResultadoLabel = document.querySelector( '#resultadoLabel' );
 const docAlturaVolumenTable = document.querySelector( '#alturaVolumenTable' );
 
 
-let altura=100
+let altura=220
 let alturaMin=30
 let alturaMax=400
 
-let perimetro=100
+let perimetro=582
 let perimetroMin=50
 let perimetroMax=850
 
