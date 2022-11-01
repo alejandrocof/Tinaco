@@ -24,13 +24,13 @@ let perimetro=582
 let perimetroMin=50
 let perimetroMax=850
 
-docAlturaInput.setAttribute('value', altura );
 docAlturaInput.setAttribute('min', alturaMin );
 docAlturaInput.setAttribute('max', alturaMax );
+docAlturaInput.setAttribute('value', altura );
 
-docPerimetroInput.setAttribute('value', perimetro );
 docPerimetroInput.setAttribute('min', perimetroMin );
 docPerimetroInput.setAttribute('max', perimetroMax );
+docPerimetroInput.setAttribute('value', perimetro );
 
 
 docAlturaInput.oninput = (slider) => {
