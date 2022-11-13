@@ -8,6 +8,7 @@ var niceMax;
 
 const docAlturaInput = document.querySelector( '#alturaInput' );
 const docAlturaLabel = document.querySelector( '#alturaLabel' );
+const docVolumenLabel = document.querySelector( '#volumenLabel' );
 
 const docPerimetroInput = document.querySelector( '#perimetroInput' );
 const docPerimetroLabel = document.querySelector( '#perimetroLabel' );
@@ -59,7 +60,8 @@ const deleteTable = ( docTable ) => {
 }
 const calcular = () => {
     docAlturaLabel.textContent=`Altura: ${Number(altura).toFixed(0)} cm`;
-    docPerimetroLabel.textContent=`Perímetro: ${Number(perimetro).toFixed(0)} cm`;
+    docPerimetroLabel.setAttribute('style', 'white-space: pre; text-align: center;');
+    docPerimetroLabel.textContent=`Perímetro: ${Number(perimetro).toFixed(0)} cm\n(Diámetro: ${Number(perimetro/Math.PI).toFixed(1)} cm)`;
 
     let P=250
     let h=200
@@ -69,6 +71,8 @@ const calcular = () => {
     let Nticks=vol.niceMaximum/vol.tickSpacing
     let hticks=vol.tickSpacing*4000*Math.PI/(perimetro*perimetro)
     // console.log(Nticks, hticks,"cm")
+
+    docVolumenLabel.textContent=`Volumen total: ${Number(Vmax).toFixed(0)} litros`;
 
     /*
     docResultadoLabel.textContent=""
