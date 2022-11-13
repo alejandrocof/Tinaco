@@ -72,7 +72,7 @@ const calcular = () => {
     let hticks=vol.tickSpacing*4000*Math.PI/(perimetro*perimetro)
     // console.log(Nticks, hticks,"cm")
 
-    docVolumenLabel.textContent=`Volumen total: ${Number(Vmax).toFixed(0)} litros`;
+    docVolumenLabel.textContent=`Volumen total: ${Number(Vmax).toFixed(1)} litros`;
 
     /*
     docResultadoLabel.textContent=""
