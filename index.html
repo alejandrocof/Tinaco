@@ -5,33 +5,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
+    <title>Tinaco</title>
+    <link rel="icon" type="image/x-icon" href="icono.png">
 </head>
-<body style="background-color:#929dff;">
+<body style="background-color:#929dee;">
     <!--body style="background-color:#929dff;"></body-->
-    <div class="center">
+    <!-- <div class="center">
         <img src="tinaco.png" alt="Tinaco" width="300">
+    </div> -->
+    <div class="center">
+        <svg id="tinacoSVG"height="300px" width="300px" viewBox="-40 -40 480 480">
+            <defs>
+                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:rgba(188,151,0,0.4);stop-opacity:1" />  
+                  <stop offset="50%" style="stop-color:rgba(255,213,45,0.4);stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:rgba(188,151,0,0.4);stop-opacity:1" />
+                </linearGradient>
+              </defs>
+            <!-- <circle cx="20mm" cy="20mm" r="15mm" style="fill: blue; stroke: black; stroke-width: 1mm;" /> -->
+        </svg>
     </div>
     
+    <br>
+    <label class="center labelWhite dimensions" >Tamaño del tinaco</label>
     <br>
     <label class="center" id="perimetroLabel"></label>
     <div class="center">
         <input class="width200" id="perimetroInput" type="range" step="1">
     </div>
-
     <label class="center" id="alturaLabel"></label>
     <div class="center">
         <input class="width200" id="alturaInput" type="range" step="1">
     </div>
     <br>
+
+
+    <label class="center labelWhite chlorinated" >Selección de parámetros para el cloro</label>
+    <br>
+    <label class="center" id="porcentajeCloroLabel"></label>
+    <div class="center">
+        <input class="width200" id="porcentajeCloroInput" type="range" step="0.05">
+    </div>
+    <div class="center">
+        <select id="marcasSelect"></select>
+    </div>
     <br>
 
+
+
+    <label class="center labelWhite tabla" >Tabla propuesta de medidas</label>
+    <br>
     <label class="center" id="volumenLabel"></label>
     <br>
     
     
     <div class="center">
-        <table id='alturaVolumenTable' style="width:200px;" >
+        <table id='alturaVolumenTable' style="width:350px;" >
             <thead></thead>
             <tbody></tbody>
         </table>    
@@ -39,12 +68,23 @@
     <br>
 
     <div class="center">
-        <div class="width300">
+        <div class="width300 center">
             <label style="text-align: justify;">La primer columna indica a cuantos centímetros de la base del tinaco poner cada marca 
-                y la segunda columna indica los litros que contiene hasta esa marca</label>
+                y la segunda columna indica los litros que contiene hasta esa marca, la última columna indica la cantidad de cloro
+                que se debe agregar para tener 2ppm de cloro con ésa cantidad de agua.</label>
         </div>
     </div>
-    
+    <div class="center">
+        <div class="width300">
+        <label style="text-align: justify;">La cantidad de cloro sólo es una referencia de inicio,
+            cómo lo indica la Norma siempre debe ser medido el cloro residual</label>
+        </div>
+    </div>
+    <br>
+
+    <div class="contenedor-div">
+        <a class="contador" href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Falejandrocof.github.io%2FTinaco%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Tinaco&edge_flat=false"/></a>
+    </div>
 
     <script src="index.js"></script>
 
