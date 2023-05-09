@@ -43,7 +43,7 @@ let alturaMax=300
 
 let perimetro=582
 let perimetroMin=100
-let perimetroMax=850
+let perimetroMax=1500
 
 let diametro=perimetro/Math.PI
 
