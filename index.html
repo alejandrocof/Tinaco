@@ -25,7 +25,23 @@
             <!-- <circle cx="20mm" cy="20mm" r="15mm" style="fill: blue; stroke: black; stroke-width: 1mm;" /> -->
         </svg>
     </div>
+    <br>
+    <div class="center">
+        <label>Volumen de agua: </label>
+        <input id="volumenAguaNumber" type="number" step=1 style="width: 4em"/>
+        <label>litros</label>
+    </div>
+    <div class="center">
+        <input class="width200" id="volumenAguaInput" type="range" step=1>
+    </div>
+
+    <div class="center">
+        <div class="width300 center">
+            <label id="volumenAguaLabel" style="text-align: justify;"></label>
+        </div>
+    </div>
     
+
     <br>
     <label class="center labelWhite dimensions" >Tamaño del tinaco</label>
     <br>
@@ -42,6 +58,7 @@
 
     <label class="center labelWhite chlorinated" >Selección de parámetros para el cloro</label>
     <br>
+
     <label class="center" id="porcentajeCloroLabel"></label>
     <div class="center">
         <input class="width200" id="porcentajeCloroInput" type="range" step="0.05">
@@ -50,6 +67,26 @@
         <select id="marcasSelect"></select>
     </div>
     <br>
+    <br>
+    
+    <div class="center">
+        <label>Cloro Residual Inicial: </label>
+        <input id="residualInicialCloroNumber" type="number" step=0.1 style="width: 4em"/>
+        <label>ppm</label>
+    </div>
+    <div class="center">
+        <input class="width200" id="residualInicialCloroInput" type="range" step=0.1>
+    </div>
+    <br>
+
+    <div class="center">
+        <label>Cloro Residual Esperado: </label>
+        <input id="residualFinalCloroNumber" type="number" step=0.1 style="width: 4em"/>
+        <label>ppm</label>
+    </div>
+    <div class="center">
+        <input class="width200" id="residualFinalCloroInput" type="range" step=0.1>
+    </div>
 
 
 
@@ -63,21 +100,21 @@
         <table id='alturaVolumenTable' style="width:350px;" >
             <thead></thead>
             <tbody></tbody>
-        </table>    
+        </table>
     </div>
+    <label class="center" id="notaLabel"></label>    
     <br>
 
     <div class="center">
         <div class="width300 center">
-            <label style="text-align: justify;">La primer columna indica a cuantos centímetros de la base del tinaco poner cada marca 
-                y la segunda columna indica los litros que contiene hasta esa marca, la última columna indica la cantidad de cloro
-                que se debe agregar para tener 2ppm de cloro con ésa cantidad de agua.</label>
+            <label style="text-align: justify;">La primer columna indica a cuantos centímetros de la base del tinaco poner cada marca, 
+                la segunda columna indica los litros que contiene hasta esa marca, la última columna indica la cantidad de cloro
+                que se debe agregar para tener el cloro residual esperado con ésa cantidad de agua.</label>
         </div>
     </div>
     <div class="center">
         <div class="width300">
-        <label style="text-align: justify;">La cantidad de cloro sólo es una referencia de inicio,
-            cómo lo indica la Norma siempre debe ser medido el cloro residual</label>
+        <label style="text-align: justify;">Al final siempre se debe medir el cloro residual y agregar mas cloro si es necesario</label>
         </div>
     </div>
     <br>

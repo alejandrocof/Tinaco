@@ -9,6 +9,8 @@ var niceMax;
 const docAlturaInput = document.querySelector( '#alturaInput' );
 const docAlturaLabel = document.querySelector( '#alturaLabel' );
 const docVolumenLabel = document.querySelector( '#volumenLabel' );
+const docNotaLabel = document.querySelector( '#notaLabel' );
+
 
 const docPerimetroInput = document.querySelector( '#perimetroInput' );
 const docPerimetroLabel = document.querySelector( '#perimetroLabel' );
@@ -18,8 +20,21 @@ const docMarcasSelect = document.querySelector( '#marcasSelect' );
 const docPorcentajeCloroInput = document.querySelector( '#porcentajeCloroInput' );
 const docPorcentajeCloroLabel = document.querySelector( '#porcentajeCloroLabel' );
 
+const docResidualInicialCloroInput = document.querySelector( '#residualInicialCloroInput' );
+//const docResidualInicialCloroLabel = document.querySelector( '#residualInicialCloroLabel' );
+const docResidualInicialCloroNumber = document.querySelector( '#residualInicialCloroNumber' );
+
+const docResidualFinalCloroInput = document.querySelector( '#residualFinalCloroInput' );
+//const docResidualFinalCloroLabel = document.querySelector( '#residualFinalCloroLabel' );
+const docResidualFinalCloroNumber = document.querySelector( '#residualFinalCloroNumber' );
+
+
 const docResultadoLabel = document.querySelector( '#resultadoLabel' );
 const docAlturaVolumenTable = document.querySelector( '#alturaVolumenTable' );
+
+const docVolumenAguaInput = document.querySelector( '#volumenAguaInput' );
+const docVolumenAguaNumber = document.querySelector( '#volumenAguaNumber' );
+const docVolumenAguaLabel = document.querySelector( '#volumenAguaLabel' );
 
 
 let altura=220
@@ -66,7 +81,91 @@ let porcentajeCloroMin=2.0
 let porcentajeCloroMax=20.0
 docPorcentajeCloroInput.value=porcentajeCloro;
 
-// docMarcasSelect.selected = list[ 0 ];
+residualInicialCloro=0
+residualInicialCloroMin=0
+residualInicialCloroMax=100
+docResidualInicialCloroInput.min=residualInicialCloroMin
+docResidualInicialCloroInput.value=residualInicialCloro
+docResidualInicialCloroInput.max=residualInicialCloroMax
+//docResidualInicialCloroLabel.textContent="Cloro Residual Inicial: "+String(residualInicialCloro)+"ppm"
+docResidualInicialCloroNumber.min=residualInicialCloroMin
+docResidualInicialCloroNumber.value=residualInicialCloro
+docResidualInicialCloroNumber.max=residualInicialCloroMax
+
+residualFinalCloro=2
+residualFinalCloroMin=0
+residualFinalCloroMax=100
+docResidualFinalCloroInput.min=residualFinalCloroMin
+docResidualFinalCloroInput.value=residualFinalCloro
+docResidualFinalCloroInput.max=residualFinalCloroMax
+//docResidualFinalCloroLabel.textContent="Cloro Residual Esperado: "+String(residualFinalCloro)+"ppm"
+docResidualFinalCloroNumber.min=residualFinalCloroMin
+docResidualFinalCloroNumber.value=residualFinalCloro
+docResidualFinalCloroNumber.max=residualFinalCloroMax
+
+volumenAgua=1000
+volumenAguaMin=0
+volumenAguaMax=5000
+alturaAgua=0
+docVolumenAguaInput.min=volumenAguaMin
+docVolumenAguaInput.max=volumenAguaMax
+docVolumenAguaInput.value=volumenAgua
+
+docVolumenAguaNumber.min=volumenAguaMin
+docVolumenAguaNumber.max=volumenAguaMax
+docVolumenAguaNumber.value=volumenAgua
+
+
+docResidualInicialCloroNumber.oninput = (number) => {
+    setResidualInicial( number.target.value )
+}
+docResidualInicialCloroInput.oninput = (slider) => {
+    setResidualInicial( slider.target.value )
+};
+setResidualInicial=( value )=>{
+    residualInicialCloro=value
+    docResidualInicialCloroNumber.value=residualInicialCloro
+    docResidualInicialCloroInput.value=residualInicialCloro
+    if(Number(residualInicialCloro)>Number(docResidualFinalCloroInput.value) ){
+        residualFinalCloro=residualInicialCloro
+        docResidualFinalCloroNumber.value=residualFinalCloro
+        docResidualFinalCloroInput.value=residualFinalCloro
+    }
+    calcular();
+}
+
+docResidualFinalCloroNumber.oninput = (number) => {
+    setResidualFinal( number.target.value )
+}
+docResidualFinalCloroInput.oninput = (slider) => {
+    setResidualFinal( slider.target.value )
+};
+setResidualFinal=( value )=>{
+    residualFinalCloro=value
+    docResidualFinalCloroNumber.value=residualFinalCloro
+    docResidualFinalCloroInput.value=residualFinalCloro
+    if( Number(docResidualInicialCloroInput.value)>Number(residualFinalCloro) ){
+        residualInicialCloro=residualFinalCloro
+        docResidualInicialCloroNumber.value=residualInicialCloro
+        docResidualInicialCloroInput.value=residualInicialCloro
+    }
+    calcular();
+}
+
+docVolumenAguaNumber.oninput = (number) => {
+    setVolumenAgua( number.target.value )
+}
+docVolumenAguaInput.oninput = (slider) => {
+    setVolumenAgua( slider.target.value )
+};
+setVolumenAgua=( value )=>{
+    volumenAgua=value
+    docVolumenAguaNumber.value=volumenAgua
+    docVolumenAguaInput.value=volumenAgua
+    calcular();
+}
+
+
 docMarcasSelect.addEventListener('change', ( inData ) => {
     // console.log("***",inData.target.value, marcasList[ inData.target.value ].value)
     if( inData.target.value != 0 ){
@@ -99,6 +198,8 @@ docPorcentajeCloroInput.oninput = (slider) => {
     docMarcasSelect.value=0 //cambia Select a "Otro"
     calcular();
 };
+
+
 
 const deleteTable = ( docTable ) => {
     var child = docTable.lastElementChild; 
@@ -197,7 +298,7 @@ function redibujaTinaco(diametro, altura,alturaList, volumenList, cloroList, ele
     let s_diametro=s*diametro
     let s_ry=s*altura/10
     let marca=""
-    let nivelAgua=-0.3*s_altura
+    let nivelAgua=s*alturaAgua-s_altura/2//-0.3*s_altura
     if( docMarcasSelect.value != 0 ){
         marca=marcasList[docMarcasSelect.value].name
     }
@@ -434,20 +535,45 @@ const calcular = () => {
 
     let P=250
     let h=200
-    let solucionCloroNorma=2
+    let deltaResidual=residualFinalCloro-residualInicialCloro
     let Vmax=perimetro*perimetro*altura/(4000*Math.PI)
     let vol=niceScale( 0, Vmax)
-    // console.log(vol.tickSpacing," ",vol.niceMaximum)
+    
     let Nticks=vol.niceMaximum/vol.tickSpacing
     let hticks=vol.tickSpacing*4000*Math.PI/(perimetro*perimetro)
     // console.log(Nticks, hticks,"cm")
 
     let solucionCloro=porcentajeCloro*10000;
-    let cantidadCloro=solucionCloroNorma/solucionCloro
-    
+    let cantidadCloro=deltaResidual/solucionCloro
 
-    
+    if( Nticks*hticks <= altura){
+        volumenAguaMax=Math.round(Nticks*vol.tickSpacing)
+    }
+    else{
+        volumenAguaMax=Math.round((Nticks-1)*vol.tickSpacing)
+    }
 
+    // console.log(vol.tickSpacing," ",volumenAguaMax)
+    // docVolumenAguaInput.min=volumenAguaMin
+    // docVolumenAguaInput.value=volumenAgua
+    docVolumenAguaInput.max=volumenAguaMax
+    // docVolumenAguaNumber.min=volumenAguaMin
+    // docVolumenAguaNumber.value=volumenAgua
+    docVolumenAguaNumber.max=volumenAguaMax
+    if(Number(volumenAgua)>Number(volumenAguaMax)){
+        volumenAgua=volumenAguaMax
+        docVolumenAguaNumber.value=volumenAgua
+        docVolumenAguaInput.value=volumenAgua
+    }
+    alturaAgua=volumenAgua*4000*Math.PI/(perimetro*perimetro)
+
+    volumenCloro=Math.round(1000*volumenAgua*cantidadCloro)
+    Number().toFixed(0)
+    docVolumenAguaLabel.textContent=`Se requieren ${Number(volumenCloro).toFixed(0)}ml
+    de cloro al ${Number(porcentajeCloro).toFixed(2)}% para clorar 
+    ${Number(volumenAgua).toFixed(0)}litros de agua
+    con un cloro residual inicial de ${Number(residualInicialCloro).toFixed(1)}ppm
+    y llevarlo a un cloro residual esperado de ${Number(residualFinalCloro).toFixed(1)}ppm`;
     
     docVolumenLabel.textContent=`Volumen total: ${Number(Vmax).toFixed(1)} litros`;
 
@@ -472,7 +598,8 @@ const calcular = () => {
     cloroTH.setAttribute('style', `text-align: center; width:33.33%; background-color:#717fff` );
     alturaTH.innerText="Altura\n de la marca\n (cm)";
     volumenTH.innerText="Volumen\n en la marca\n (litros)";
-    cloroTH.innerText=`Cloro necesario\n para ${Number(solucionCloroNorma).toFixed(1)} ppm\n (ml)`;
+    cloroTH.innerText=`Cloro\nrequerido*\n(ml)`;
+    docNotaLabel.innerText=`*Cloro Residual: Inicial ${Number(residualInicialCloro).toFixed(1)}ppm, Esperado ${Number(residualFinalCloro).toFixed(1)}ppm`
     docAlturaVolumenTable.appendChild(alturaTH);
     docAlturaVolumenTable.appendChild(volumenTH);
     docAlturaVolumenTable.appendChild(cloroTH);
