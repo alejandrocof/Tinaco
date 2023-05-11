@@ -36,6 +36,9 @@ const docVolumenAguaInput = document.querySelector( '#volumenAguaInput' );
 const docVolumenAguaNumber = document.querySelector( '#volumenAguaNumber' );
 const docVolumenAguaLabel = document.querySelector( '#volumenAguaLabel' );
 
+const docResidualInicialCloroColor = document.querySelector( '#residualInicialCloroColor' );
+const docResidualFinalCloroColor = document.querySelector( '#residualFinalCloroColor' );
+
 
 let altura=220
 let alturaMin=50
@@ -532,6 +535,20 @@ const calcular = () => {
     docPerimetroLabel.setAttribute('style', 'white-space: pre; text-align: center;');
     docPerimetroLabel.textContent=`Perímetro: ${Number(perimetro).toFixed(0)} cm\n(Diámetro: ${Number(diametro).toFixed(1)} cm)`;
     docPorcentajeCloroLabel.textContent=`Concentración del cloro: ${Number(porcentajeCloro).toFixed(2)}%`;
+    if(residualInicialCloro<=3.4){
+        docResidualInicialCloroColor.setAttribute('style',`color:hsl(333,100%,${100-50*residualInicialCloro/3.4}%)`)
+    }
+    else{
+        docResidualInicialCloroColor.setAttribute('style',`color:black`)
+    }
+    if(residualFinalCloro<=3.4){
+        docResidualFinalCloroColor.setAttribute('style',`color:hsl(333,100%,${100-50*residualFinalCloro/3.4}%)`)
+    }
+    else{
+        docResidualFinalCloroColor.setAttribute('style',`color:black`)
+    }
+
+        
 
     let P=250
     let h=200
