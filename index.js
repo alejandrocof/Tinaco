@@ -68,13 +68,17 @@ marcasList=[
     // { name:"Viarzoni-t", value:2.80},
     { name:"GreatValue", value:6.20},
     { name:"Los Patitos", value:5.80},
-    { name:"Hipoclorito 13%", value:13.00}
+    { name:"Hipoclorito", value:13.00}
 ]
 
 marcasList.forEach( (marca, index)=>{
     const opt = document.createElement('option');
     opt.setAttribute('value', index );
-    const name = document.createTextNode(marca.name);
+    let label=marca.name;
+    if(marca.value!=0){
+        label+=" "+String(marca.value)+"%";
+    }
+    const name = document.createTextNode(label);
     opt.appendChild(name);
     docMarcasSelect.appendChild(opt);
 })
@@ -275,6 +279,8 @@ let refuerzo2 = dibujarElementoSVG(tinacoSVG, "path",{});
 let refuerzo3 = dibujarElementoSVG(tinacoSVG, "path",{});
 let alturaLinea = dibujarElementoSVG(tinacoSVG, "path",{});
 let alturaTexto = dibujarElementoSVG(tinacoSVG, "text",{});
+let alturaLineaNivel = dibujarElementoSVG(tinacoSVG, "path",{});
+let alturaTextoNivel = dibujarElementoSVG(tinacoSVG, "text",{});
 let diametroLinea = dibujarElementoSVG(tinacoSVG, "path",{});
 let diametroTexto = dibujarElementoSVG(tinacoSVG, "text",{});
 let bombaAgua = dibujarElementoSVG(tinacoSVG, "image",{href:"BombaAgua.svg", height:"72.193", width:"53.430"});
@@ -422,6 +428,27 @@ function redibujaTinaco(diametro, altura,alturaList, volumenList, cloroList, ele
             "text-anchor":"middle"
         },
         altura+" cm"
+    )
+
+    setAttributesSVG(alturaLineaNivel,{
+        d:`M ${cx-4*s_diametro/8} ${cy-nivelAgua}
+        V ${cy+s_altura/2}
+        M ${cx-4*s_diametro/8-s_diametro/32} ${cy-nivelAgua}
+        H ${cx-4*s_diametro/8}
+        M ${cx-4*s_diametro/8-s_diametro/32} ${cy+s_altura/2}
+        H ${cx-4*s_diametro/8}`,
+        style:"stroke:rgb(64,64,255);stroke-width:3"
+    })
+
+    
+    setAttributesSVG(alturaTextoNivel,{
+            // transform:` translate(${cx-17*s_diametro/32},${cy+s_altura/2-nivelAgua/2}) rotate(-90)`,
+            transform:` translate(${cx-17*s_diametro/32},${cy+s_altura/2-(s_altura/2+nivelAgua)/2}) rotate(-90)`,
+            "font-size":"20px",
+            "text-anchor":"middle",
+            style:"stroke:rgb(64,64,255)"
+        },
+        Number(alturaAgua).toFixed(1)+" cm"
     )
 
     setAttributesSVG(diametroLinea,{
@@ -586,8 +613,17 @@ const calcular = () => {
 
     volumenCloro=Math.round(1000*volumenAgua*cantidadCloro)
     Number().toFixed(0)
-    docVolumenAguaLabel.textContent=`Se requieren ${Number(volumenCloro).toFixed(0)}ml
-    de cloro al ${Number(porcentajeCloro).toFixed(2)}% para clorar 
+
+    let marca=''
+    if( docMarcasSelect.value != 0 ){
+        marca='<b>'+marcasList[docMarcasSelect.value].name+'</b> ('+String(Number(porcentajeCloro).toFixed(2))+"%)"
+    }
+    else{
+        marca="cloro al "+String(Number(porcentajeCloro).toFixed(2))+"%"
+    }
+    //docVolumenAguaLabel.textContent
+    docVolumenAguaLabel.innerHTML=`Se requieren ${Number(volumenCloro).toFixed(0)}ml
+    de ${marca} para clorar 
     ${Number(volumenAgua).toFixed(0)}litros de agua
     con un cloro residual inicial de ${Number(residualInicialCloro).toFixed(1)}ppm
     y llevarlo a un cloro residual esperado de ${Number(residualFinalCloro).toFixed(1)}ppm`;
